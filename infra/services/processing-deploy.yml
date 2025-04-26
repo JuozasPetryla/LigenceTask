@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  processing-service:
+    container_name: python-image-file-processing-service
+    build:
+      context: ../image_processing
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      FILE_STORAGE_URL: "http://file-storage:5000"
