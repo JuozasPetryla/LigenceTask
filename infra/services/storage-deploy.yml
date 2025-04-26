@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  file-storage:
+    container_name: python-image-file-storage
+    build:
+      context: ../storage/file_service
+      dockerfile: Dockerfile
+    volumes:
+      - ../storage/file_storage:/data
+    ports:
+      - "9000:5000"
+
+  db:
+    container_name: python-image-db
+    image: postgres:15.3-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - "../storage/pg-init.sql:/docker-entrypoint-initdb.d/master_db_init.sql"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  pgadmin:
+    container_name: python-image-db-viewer
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  flyway:
+    container_name: python-image-db-migrations
+    image: flyway/flyway:latest
+    volumes:
+      - ../storage/migrations:/flyway/sql
+    environment:
+      FLYWAY_URL: jdbc:postgresql://db:5432/postgres
+      FLYWAY_USER: admin
+    entrypoint: ["flyway"]
+    command: ["migrate"]
+    depends_on:
+      - db
