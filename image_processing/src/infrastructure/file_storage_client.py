@@ -17,7 +17,7 @@ class FileStorageClient:
     async def upload(self, file_name_modified: str, file_name_original, file_bytes: bytes) -> str:
         self._encode_file_name_headers(file_name_modified, file_name_original)
         resp = await self.client.post(
-                f"{self.base_url}/upload-files", 
+                f"{self.base_url}/upload-file", 
                 content=file_bytes,
                 headers=self.headers
             )

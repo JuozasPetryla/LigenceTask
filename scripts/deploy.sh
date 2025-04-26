@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+mkdir ./storage/file_storage
+
 docker compose \
   -f infrastructure/docker-compose.yml \
   -f infrastructure/services/storage-deploy.yml \

@@ -1,1 +1,0 @@
-FILE_SAVE_DIRECTORY = "/data"

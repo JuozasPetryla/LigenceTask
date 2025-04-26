@@ -10,6 +10,8 @@ services:
       - ../storage/file_storage:/data
     ports:
       - "9000:5000"
+    environment:
+      FILE_STORAGE_MAIN_DIR: "/data"
 
   db:
     container_name: python-image-db

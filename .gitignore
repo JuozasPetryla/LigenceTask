@@ -1,1 +1,3 @@
+storage/file_storage/**
+storage/file_storage
 .venv
