@@ -1,11 +1,18 @@
+from psycopg2.extras import RealDictCursor
+from psycopg2.extensions import connection as PGConnection
 from fastapi import UploadFile
 
 from .utils.constants import IMAGE_PROCESS_COUNT
-from ..infra.file_storage_client import FileStorageClient
+from ..infrastructure.file_storage_client import FileStorageClient
 
 class ImageProcessingService:
-    def __init__(self, file_storage_client: FileStorageClient):
+    def __init__(self, file_storage_client: FileStorageClient, database_conn: PGConnection):
         self.file_storage_client = file_storage_client
+        self.database_conn = database_conn
+
+    def check_db_conn(self):
+        with self.database_conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("SELECT 1")
 
     @staticmethod
     def _construct_file_modified_name(file_name: str, suffix: str) -> str:
@@ -16,6 +23,7 @@ class ImageProcessingService:
         return self._construct_file_modified_name(image_file_name, iteration), image_file_contents
 
     async def upload_processed_files(self, image_file: UploadFile):
+        self.check_db_conn()
         contents = image_file.file.read()
         urls = []
         for i in range(0, IMAGE_PROCESS_COUNT):

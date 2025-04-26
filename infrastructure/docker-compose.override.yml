@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  file-storage:
+    volumes:
+      - ../storage/file_service:/app
+      - ../storage/file_storage:/data
+    command: uvicorn src.main:app --host 0.0.0.0 --port 5000 --reload
+
+  processing-service:
+    volumes:
+      - ../image_processing:/app
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+  
+  validation-service:
+    volumes:
+      - ../image_validation:/app
+    command: uvicorn src.main:app --host 0.0.0.0 --port 3000 --reload
