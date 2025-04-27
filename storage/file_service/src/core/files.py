@@ -1,6 +1,6 @@
 import base64, os
 
-FILE_STORAGE_MAIN_DIR = os.getenv("FILE_STORAGE_MAIN_DIR")
+FILE_STORAGE_MAIN_DIR = '/data'
 
 def _decode_file_name_headers(
         x_filename_original_b64: str, 
@@ -27,3 +27,9 @@ def write_file(
         f.write(file_bytes)
     
     return file_save_path
+
+def read_file(file_path: str) -> bytes:
+    with open(file_path, "rb") as f:
+        file_bytes = f.read()
+
+    return file_bytes

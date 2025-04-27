@@ -9,4 +9,5 @@ services:
     ports:
       - "3000:3000"
     environment:
+      FILE_STORAGE_URL: "http://file-storage:5000"
       DATABASE_URL: "postgresql://admin@db:5432/postgres"

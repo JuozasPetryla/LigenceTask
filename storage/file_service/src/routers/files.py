@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Request, Header
+from fastapi import APIRouter, Request, Response, Header
 
-from ..core.files import write_file
+from ..core.files import write_file, read_file
 
 router = APIRouter()
 
@@ -19,3 +19,14 @@ async def upload_image(
     )
 
     return {"message": f"Successfully uploaded files", "file_save_path": file_save_path}
+
+@router.get("/download-file")
+async def download_image(
+        file_path: str
+    ):
+    file_bytes = read_file(file_path)
+    
+    return Response(
+        content=file_bytes,
+        media_type="application/octet-stream"
+    ) 

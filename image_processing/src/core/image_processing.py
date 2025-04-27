@@ -1,5 +1,3 @@
-import os
-
 from psycopg2.extras import RealDictCursor
 from psycopg2.extensions import connection as PGConnection
 from fastapi import UploadFile
@@ -9,8 +7,6 @@ from .utils.sql_queries import \
     insert_into_original_image_table, \
     insert_into_modified_image_table
 from ..infrastructure.file_storage_client import FileStorageClient
-
-FILE_STORAGE_MAIN_DIR = os.getenv("FILE_STORAGE_MAIN_DIR")
 
 class ImageProcessingService:
     def __init__(self, file_storage_client: FileStorageClient, database_conn: PGConnection):
