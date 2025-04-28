@@ -12,4 +12,4 @@ class FileStorageClient:
                 params={ "file_path": file_path }
             )
         resp.raise_for_status()
-        return resp
+        return resp.content

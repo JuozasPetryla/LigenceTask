@@ -25,7 +25,7 @@ async def download_image(
         file_path: str
     ):
     file_bytes = read_file(file_path)
-    
+
     return Response(
         content=file_bytes,
         media_type="application/octet-stream"
