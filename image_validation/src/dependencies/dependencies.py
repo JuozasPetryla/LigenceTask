@@ -8,7 +8,7 @@ from starlette.concurrency import run_in_threadpool
 from psycopg2.extensions import connection as PGConnection
 
 from ..infrastructure.file_storage_client import FileStorageClient
-from ..core.image_validation import ImageValidationService
+from ..core.image_validation import ImageVerifierService
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://myuser:mypassword@db:5432/mydb")
 FILE_STORAGE_URL = os.getenv("FILE_STORAGE_URL", "http://localhost:5000")
@@ -24,8 +24,8 @@ async def get_database_conn() -> AsyncGenerator[PGConnection, None]:
     finally:
         await run_in_threadpool(conn.close)
 
-async def get_image_validation_service(
+async def get_image_verifier_service(
     storage: FileStorageClient = Depends(get_file_storage_client),
     database_conn: PGConnection = Depends(get_database_conn)
-) -> ImageValidationService:
-    return ImageValidationService(storage, database_conn)
+) -> ImageVerifierService:
+    return ImageVerifierService(storage, database_conn)
