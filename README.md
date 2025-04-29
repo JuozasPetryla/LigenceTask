@@ -39,7 +39,7 @@ It takes roughly ~7-9 seconds to generate all the variants and upload to the sto
 ![image](https://github.com/user-attachments/assets/fe9ee6b8-ac4d-4697-80f7-df66139895b4)
 
 
-Taking the `original_image_id` from the response, go to the image validator service docs `0.0.0.0:3000/docs` and test with the `original_image_id`:
+Taking the `original_image_id` from the response, go to the image validator service docs `0.0.0.0:3000/docs` and test with the `original_image_id` and specified `variant_index` (1-100):
 
 ![image](https://github.com/user-attachments/assets/59b417e3-55e6-4e6e-b045-1836fdae7d84)
 
