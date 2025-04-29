@@ -18,6 +18,7 @@ Services communicate with the storage via HTTP/2 and database connector
 ## Prerequisites
 - Docker
 - docker compose cli
+- WSL
 
 ## Setup
 1. Clone the git repo
