@@ -1,0 +1,1 @@
+FILE_STORAGE_MAIN_DIR = '/data'

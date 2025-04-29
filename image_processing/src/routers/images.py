@@ -1,6 +1,5 @@
 from fastapi import APIRouter, UploadFile, Depends, status
 from pydantic import BaseModel
-
 from ..core.image_processing import ImageProcessingService
 from ..core.utils.constants import IMAGE_TO_PROCESS_COUNT
 from ..dependencies.dependencies import get_image_service

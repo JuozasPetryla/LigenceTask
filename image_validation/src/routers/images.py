@@ -22,9 +22,7 @@ async def verify_image_variant(
     variant_index: int,
     service: ImageVerifierService = Depends(get_image_verifier_service),
 ) -> VerificationResult:
-    file_name, is_reversible = await service.verify_image_variant(
-        original_image_id, variant_index
-    )
+    file_name, is_reversible = await service.verify_image_variant(original_image_id, variant_index)
     return VerificationResult(
         original_image_id=original_image_id,
         variant_index=variant_index,
