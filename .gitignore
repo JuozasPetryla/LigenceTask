@@ -1,3 +1,7 @@
 storage/file_storage/**
 storage/file_storage
 .venv
+__pycache__/
+**/__pycache__/*
+*.py[cod]
+*$py.class
