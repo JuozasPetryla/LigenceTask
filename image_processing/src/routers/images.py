@@ -9,6 +9,7 @@ router = APIRouter()
 class UploadImageResponse(BaseModel):
     file_name: str
     variants_created: int
+    original_image_id: int
 
 @router.post(
     "/upload-image",
@@ -20,8 +21,9 @@ async def upload_image(
     image_file: UploadFile,
     service: ImageProcessingService = Depends(get_image_service),
 ) -> UploadImageResponse:
-    await service.upload_processed_files(image_file)
+    original_image_id = await service.upload_processed_files(image_file)
     return UploadImageResponse(
         file_name=image_file.filename,
         variants_created=IMAGE_TO_PROCESS_COUNT,
+        original_image_id=original_image_id
     )

@@ -28,7 +28,7 @@ class ImageProcessingService:
         self.variants_info = []
         self.semaphore = asyncio.Semaphore(max_workers)
 
-    async def upload_processed_files(self, image_file: UploadFile):
+    async def upload_processed_files(self, image_file: UploadFile) -> int:
         image_bytes = await image_file.read()
         image_group_directory = construct_file_group_directory(image_file.filename)
         image_file_extension = get_file_extension(image_file.filename)
@@ -61,6 +61,8 @@ class ImageProcessingService:
             self._insert_variant,
             original_id
         )
+
+        return original_id
     
     async def _process_image_variant(
         self, iteration, original_name, ext, image_bytes, group_dir
